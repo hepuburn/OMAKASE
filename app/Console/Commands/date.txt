@@ -1,0 +1,49 @@
+           $dates = [];
+            foreach ($page->querySelectorAll('.p-reservation_customer_table a:not(.disabled)') as $element) {
+                $dates[] = $element;
+            }
+
+            // var_dump($dates);
+            // exit();
+
+            $dates = $page->evaluate(JsFunction::createWithBody("
+
+            function sleep(l) {
+                let t = new Date();
+                while(true) {
+                 let ms = (new Date()).getTime() - t.getTime();
+                 if (l <= ms) {
+                  console.log(ms);
+                  break;
+                 }
+                }
+               }
+
+
+
+               var div = document.getElementsByClassName('p-reservation_customer_table');
+               var a_lists = div[0].getElementsByTagName('a');
+               var array = [];
+               for(i=0; i< a_lists.length; i++){
+                if(a_lists[i].className != 'disabled'){
+                 var a_click = a_lists[i].innerText;
+
+                 a_lists[i].click();
+
+                 sleep(5000);
+
+                 var side = document.getElementsByClassName('ui segment very padded p-rsv_c_selectWrap');
+                 var times = side[0].getElementsByTagName('label');
+                 var array_time = [];
+                 for(x=0; x< times.length; x++){
+                  array_time.push(times[x].innerText);
+                 }
+                 array.push({
+                  date: a_click,
+                  times: array_time
+                 });
+                }
+               }
+
+                return array;
+            "));

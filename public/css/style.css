@@ -1,0 +1,19 @@
+.main {
+    text-align: center;
+}
+
+.search {
+    margin-top: 70px;
+}
+
+.card {
+    box-shadow: 2px 2px 4px gray;
+}
+
+.font-weight-bold {
+    font-weight: bold;
+}
+
+.yoyaku {
+    font-weight: bold;
+}
